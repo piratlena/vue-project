@@ -1,37 +1,19 @@
 <template>
   <div class="container">
-    <form class="form">
-      <input
-        class="input-title"
-        type="text"
-        placeholder="Название поста"
-      />
-      <input
-        class="input-descr"
-        type="text"
-        placeholder="Название поста"
-      />
-    </form>
-    <div
-      class="post"
-      v-for="post in posts"
-    >
-      <div>
-        <div class="title">Название:</div>
-        <div class="descr">{{ post.title }}</div>
-      </div>
-      <div>
-        <div class="title">Описание:</div>
-        <div class="descr">
-          {{ post.description }}
-        </div>
-      </div>
-    </div>
+    <post-form />
+    <post-list :posts="posts" />
   </div>
 </template>
 
 <script>
+import PostForm from "@/components/PostForm.vue";
+import PostList from "@/components/PostList.vue";
+
 export default {
+  components: {
+    PostForm,
+    PostList,
+  },
   data() {
     return {
       posts: [
@@ -51,7 +33,21 @@ export default {
           description: "Описание поста 3",
         },
       ],
+      title: "",
+      description: "",
     };
+  },
+  methods: {
+    createPost() {
+      const newPost = {
+        id: Date.now(),
+        title: this.title,
+        description: this.description,
+      };
+      this.posts.push(newPost);
+      this.title = "";
+      this.description = "";
+    },
   },
 };
 </script>
@@ -71,43 +67,5 @@ body {
   margin: 0 auto;
   align-items: center;
   padding-top: 100px;
-}
-
-.post {
-  width: 70%;
-  margin: 0 auto;
-  padding: 15px;
-  border: 1px solid #a3c322;
-  border-radius: 8px;
-  color: white;
-  margin-bottom: 20px;
-}
-
-.title {
-  font-size: 2rem;
-  color: #cbe467;
-  text-transform: uppercase;
-  line-height: 48px;
-}
-.descr {
-  font-size: 1.5rem;
-}
-
-.form {
-  margin: 0 auto;
-  width: 70%;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-input {
-  background: transparent;
-  border: 1px solid #cbe467;
-  width: 48%;
-  height: 2.5rem;
-
-  margin-bottom: 20px;
-  border-radius: 10px;
-  padding-left: 10px;
 }
 </style>
