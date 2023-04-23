@@ -9,25 +9,29 @@
       @submit.prevent
     >
       <input
-        v-bind:value="post.title"
-        @input="post.title = $event.target.value"
+        v-model="post.title"
         class="input-title"
         type="text"
         placeholder="Название поста"
       />
       <input
-        v-bind:value="post.description"
-        @input="post.description = $event.target.value"
+        v-model="post.description"
         class="input-descr"
         type="text"
         placeholder="Название поста"
       />
     </form>
-    <button class="btn">Создать пост</button>
+    <my-button
+      class="btn"
+      @click="createPost"
+    >
+      Создать пост
+    </my-button>
   </div>
 </template>
 
 <script>
+import MyButton from "@/components/UI/MyButton.vue";
 export default {
   data() {
     return {
@@ -36,6 +40,16 @@ export default {
         description: "",
       },
     };
+  },
+  methods: {
+    createPost() {
+      this.post.id = Date.now();
+      this.$emit("create", this.post);
+      this.post = {
+        title: "",
+        description: "",
+      };
+    },
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <post-form />
+    <post-form @create="createPost" />
     <post-list :posts="posts" />
   </div>
 </template>
@@ -33,20 +33,11 @@ export default {
           description: "Описание поста 3",
         },
       ],
-      title: "",
-      description: "",
     };
   },
   methods: {
-    createPost() {
-      const newPost = {
-        id: Date.now(),
-        title: this.title,
-        description: this.description,
-      };
-      this.posts.push(newPost);
-      this.title = "";
-      this.description = "";
+    createPost(post) {
+      this.posts.push(post);
     },
   },
 };

@@ -1,23 +1,19 @@
 <template>
-  <div
-    class="post"
-    v-for="post in posts"
-  >
-    <div>
-      <div class="title">Название:</div>
-      <div class="descr">{{ post.title }}</div>
-    </div>
-    <div>
-      <div class="title">Описание:</div>
-      <div class="descr">
-        {{ post.description }}
-      </div>
-    </div>
+  <div>
+    <h3>Список пользователей</h3>
+    <post-item
+      class="post"
+      v-for="post in posts"
+      :post="post"
+    />
   </div>
 </template>
 
 <script>
+import PostItem from "@/components/PostItem.vue";
+
 export default {
+  components: { PostItem },
   props: {
     posts: {
       type: Array,
@@ -34,6 +30,7 @@ export default {
   align-items: center;
   padding-top: 100px;
 }
+
 .post {
   width: 70%;
   margin: 0 auto;
@@ -44,13 +41,8 @@ export default {
   margin-bottom: 20px;
 }
 
-.title {
-  font-size: 2rem;
-  color: #cbe467;
-  text-transform: uppercase;
-  line-height: 48px;
-}
-.descr {
-  font-size: 1.5rem;
+h3 {
+  color: white;
+  font-size: 3rem;
 }
 </style>
