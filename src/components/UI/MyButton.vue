@@ -1,28 +1,29 @@
 <template>
-  <button></button>
+  <button class="btn">
+    <slot></slot>
+  </button>
 </template>
 
-<script></script>
+<script>
+export default {
+  name: "my-button",
+};
+</script>
 
 <style>
 .btn {
-  margin-bottom: 30px;
-  padding: 10px;
-  width: 9rem;
-  height: 1.5rem;
+  padding: 10px 20px 10px 20px;
   align-self: center;
-  width: 100%;
-  height: 100%;
-  background: transparent;
+  background: #a3c322;
   border: 1px solid #cbe467;
   border-radius: 8px;
   color: white;
-  font-size: 1rem;
+  font-size: 2rem;
 
   transition: 0.3s ease-in-out;
   cursor: pointer;
 }
 .btn:hover {
-  background: #a3c322;
+  background: transparent;
 }
 </style>

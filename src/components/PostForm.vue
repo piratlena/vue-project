@@ -8,17 +8,19 @@
       class="form"
       @submit.prevent
     >
-      <input
+      <form-input
         v-model="post.title"
+        v-model:value="post.title"
         class="input-title"
         type="text"
         placeholder="Название поста"
       />
-      <input
+      <form-input
         v-model="post.description"
+        v-model:value="post.description"
         class="input-descr"
         type="text"
-        placeholder="Название поста"
+        placeholder="Описание поста"
       />
     </form>
     <my-button
@@ -31,7 +33,6 @@
 </template>
 
 <script>
-import MyButton from "@/components/UI/MyButton.vue";
 export default {
   data() {
     return {
@@ -86,7 +87,7 @@ h4 {
   justify-content: space-between;
   flex-wrap: wrap;
 }
-input {
+/* input {
   background: transparent;
   border: 1px solid #cbe467;
   width: 48%;
@@ -95,21 +96,5 @@ input {
   margin-bottom: 20px;
   border-radius: 10px;
   padding-left: 10px;
-}
-.btn {
-  width: 15rem;
-  align-self: center;
-  height: 3.5rem;
-  background: #a3c322;
-  border: 1px solid #cbe467;
-  border-radius: 8px;
-  color: white;
-  font-size: 1.2rem;
-  margin-bottom: 30px;
-  transition: 0.3s ease-in-out;
-  cursor: pointer;
-}
-.btn:hover {
-  background: transparent;
-}
+} */
 </style>

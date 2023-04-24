@@ -13,7 +13,11 @@
       </div>
     </div>
     <div class="post_btns">
-      <button class="post__btn">Удалить</button>
+      <delete-btn
+        class="post__btn"
+        @click="$emit('remove', post)"
+        >Удалить</delete-btn
+      >
     </div>
   </div>
 </template>
@@ -58,7 +62,7 @@ export default {
   font-size: 1.5rem;
 }
 
-.post__btn {
+.post__btns {
   margin-bottom: 30px;
   padding: 10px;
   width: 9rem;
