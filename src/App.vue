@@ -2,12 +2,17 @@
   <div class="container">
     <div class="post-create">
       <h1>Страница с постами</h1>
-      <my-button @click="fetchPosts">Получить посты</my-button>
-      <my-button
-        class="post-btn"
-        @click="showDialog"
-        >Создать пост</my-button
-      >
+      <div class="post-selector">
+        <my-button
+          class="post-btn"
+          @click="showDialog"
+          >Создать пост</my-button
+        >
+        <select-list
+          v-model="selectedSort"
+          :options="sortOption"
+        />
+      </div>
     </div>
 
     <dialog-modal v-model:show="dialogVisible">
@@ -17,7 +22,10 @@
     <post-list
       :posts="posts"
       @remove="removePost"
+      v-if="!isPostLoading"
     />
+
+    <spinner-sign v-else />
   </div>
 </template>
 
@@ -35,6 +43,12 @@ export default {
     return {
       posts: [],
       dialogVisible: false,
+      isPostLoading: false,
+      selectedSort: "",
+      sortOption: [
+        { value: "title", name: "По названию" },
+        { value: "body", name: "По содержимому" },
+      ],
     };
   },
   methods: {
@@ -50,14 +64,29 @@ export default {
     },
     async fetchPosts() {
       try {
+        this.isPostLoading = true;
+
         const response = await axios.get(
           `https://jsonplaceholder.typicode.com/posts?_limit=10`
         );
         this.posts = response.data;
-        console.log(response);
       } catch (e) {
         alert("Something went wrong");
+      } finally {
+        this.isPostLoading = false;
       }
+    },
+  },
+  mounted() {
+    this.fetchPosts();
+  },
+  watch: {
+    selectedSort(newValue) {
+      this.posts.sort((post1, post2) => {
+        return post1[this.selectedSort]?.localeCompare(
+          post2[this.selectedSort]
+        );
+      });
     },
   },
 };
@@ -96,5 +125,12 @@ h1 {
   color: white;
 
   font-size: 4rem;
+}
+.post-selector {
+  width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 </style>
