@@ -16,13 +16,14 @@
         placeholder="Название поста"
       />
       <form-input
-        v-model="post.description"
-        v-model:value="post.description"
+        v-model="post.body"
+        v-model:value="post.body"
         class="input-descr"
         type="text"
         placeholder="Описание поста"
       />
     </form>
+
     <my-button
       class="btn"
       @click="createPost"
@@ -38,7 +39,7 @@ export default {
     return {
       post: {
         title: "",
-        description: "",
+        body: "",
       },
     };
   },
@@ -48,7 +49,7 @@ export default {
       this.$emit("create", this.post);
       this.post = {
         title: "",
-        description: "",
+        body: "",
       };
     },
   },
@@ -64,7 +65,7 @@ export default {
 }
 
 h4 {
-  color: white;
+  color: #a3c322;
   font-size: 2.5rem;
 }
 
@@ -72,6 +73,7 @@ h4 {
   margin: 0 auto;
   width: 350px;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .create-post {
@@ -84,17 +86,8 @@ h4 {
   margin: 0 auto;
   width: 70%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   flex-wrap: wrap;
 }
-/* input {
-  background: transparent;
-  border: 1px solid #cbe467;
-  width: 48%;
-  height: 2.5rem;
-  color: white;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  padding-left: 10px;
-} */
 </style>

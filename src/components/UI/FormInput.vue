@@ -25,9 +25,9 @@ export default {
 .input {
   background: transparent;
   border: 1px solid #cbe467;
-  width: 48%;
+  width: 100%;
   height: 2.5rem;
-  color: white;
+  color: black;
   margin-bottom: 20px;
   border-radius: 10px;
   padding-left: 10px;

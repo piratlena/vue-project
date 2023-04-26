@@ -8,7 +8,7 @@
       <div>
         <div class="title">Описание:</div>
         <div class="descr">
-          {{ post.description }}
+          {{ post.body }}
         </div>
       </div>
     </div>
