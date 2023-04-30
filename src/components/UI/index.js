@@ -4,6 +4,7 @@ import FormInput from "@/components/UI/FormInput";
 import DialogModal from "@/components/UI/DialogModal";
 import SpinnerSign from "@/components/UI/SpinnerSign";
 import SelectList from "@/components/UI/SelectList";
+import SearchInput from "@/components/UI/SearchInput.vue";
 
 export default [
   MyButton,
@@ -12,4 +13,5 @@ export default [
   DialogModal,
   SpinnerSign,
   SelectList,
+  SearchInput,
 ];

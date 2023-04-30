@@ -5,14 +5,15 @@
       v-if="show"
       @click.stop="hideDialog"
     >
-      <transition-group name="dialog-inner">
+      <transition name="dialog-inner">
         <div
+          v-if="show"
           class="dialog__content"
           @click.stop
         >
           <slot></slot>
         </div>
-      </transition-group>
+      </transition>
     </div>
   </transition-group>
 </template>
