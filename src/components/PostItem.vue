@@ -19,6 +19,12 @@
         @click="$emit('remove', post)"
         >Удалить</delete-btn
       >
+
+      <delete-btn
+        class="post__btn"
+        @click="$router.push(`/posts/${post.id}`)"
+        >Открыть</delete-btn
+      >
     </div>
   </div>
 </template>
@@ -51,6 +57,7 @@ export default {
 .post__content {
   display: flex;
   flex-direction: column;
+  padding: 0px 15px 0px 15px;
 }
 
 .title {
@@ -62,25 +69,8 @@ export default {
 .descr {
   font-size: 1.5rem;
 }
-
 .post__btns {
-  margin-bottom: 30px;
-  padding: 10px;
-  width: 9rem;
-  height: 1.5rem;
-  align-self: center;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  border: 1px solid #cbe467;
-  border-radius: 8px;
-  color: white;
-  font-size: 1rem;
-
-  transition: 0.3s ease-in-out;
-  cursor: pointer;
-}
-.post__btn:hover {
-  background: #a3c322;
+  display: flex;
+  flex-direction: column;
 }
 </style>
