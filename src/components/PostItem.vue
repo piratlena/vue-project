@@ -2,6 +2,7 @@
   <div class="post">
     <div class="post__content">
       <div>
+        <div>{{ post.id }}</div>
         <div class="title">Название:</div>
         <div class="descr">{{ post.title }}</div>
       </div>
