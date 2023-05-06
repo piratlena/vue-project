@@ -9,6 +9,7 @@
       @submit.prevent
     >
       <form-input
+        v-focus
         v-model="post.title"
         v-model:value="post.title"
         class="input-title"

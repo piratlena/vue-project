@@ -19,6 +19,12 @@
       >
         О сайте
       </li>
+      <li
+        class="navbar__item"
+        @click="$router.push('/store')"
+      >
+        Store
+      </li>
     </ul>
   </div>
 </template>
@@ -60,7 +66,7 @@
   align-items: center;
 }
 .navbar__items {
-  width: 300px;
+  width: 350px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;

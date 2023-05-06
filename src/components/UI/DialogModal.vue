@@ -19,19 +19,21 @@
 </template>
 
 <script>
+import toggleMixin from "@/mixins/toggleMixin";
 export default {
   name: "dialog-modal",
+  mixins: [toggleMixin],
   props: {
-    show: {
-      type: Boolean,
-      default: false,
-    },
+    // show: {
+    //   type: Boolean,
+    //   default: false,
+    // },
   },
-  methods: {
-    hideDialog() {
-      this.$emit("update:show", false);
-    },
-  },
+  // methods: {
+  //   hideDialog() {
+  //     this.$emit("update:show", false);
+  //   },
+  // },
 };
 </script>
 

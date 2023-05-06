@@ -9,7 +9,6 @@
 
 <script>
 import NavBar from "@/pages/NavBar.vue";
-
 export default {
   components: {
     NavBar,
@@ -27,11 +26,10 @@ body {
   border: 0;
   box-sizing: border-box;
 }
-
 .container {
   max-width: 1140px;
   margin: 0 auto;
   align-items: center;
-  padding-top: 100px;
+  padding-top: 200px;
 }
 </style>
