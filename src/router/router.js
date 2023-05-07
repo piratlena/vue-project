@@ -22,10 +22,10 @@ const routes = [
     path: "/posts/:id",
     component: PostLinkPage,
   },
-  // {
-  //   path: "/store",
-  //   component: PostPageWithStore,
-  // },
+  {
+    path: "/store",
+    component: PostPageWithStore,
+  },
 ];
 const router = createRouter({
   routes,

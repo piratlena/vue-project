@@ -1,11 +1,29 @@
 <template>
   <div class="post-create">
-    <h1>{{ $store.state.likes }}</h1>
+    <h2>
+      {{
+        $store.state.isAuth
+          ? "Пользователь авторизован"
+          : "Авторизуйтесь, чтобы использовать сервис"
+      }}
+    </h2>
+    <h2>{{ $store.getters.doubleLikes }}</h2>
     <h1>Страница с постами</h1>
+    <div class="likes">
+      <i
+        class="fa-regular fa-thumbs-up fa-2x like"
+        @click="$store.commit('incrementLikes')"
+      ></i>
+
+      <i
+        class="fa-regular fa-thumbs-down dislike fa-2x dislike"
+        @click="$store.commit('decrementLikes')"
+      ></i>
+    </div>
 
     <search-input
-      v-model="searchQuery"
-      v-model:value="searchQuery"
+      :model-value="searchQuery"
+      @update:model-value="setSearchQuery"
       placeholder="Поиск"
     />
 
@@ -16,7 +34,8 @@
         >Создать пост</my-button
       >
       <select-list
-        v-model="selectedSort"
+        :model-value="selectedSort"
+        @update:model-value="setSelectedSort"
         :options="sortOption"
       />
     </div>
@@ -44,6 +63,7 @@
 import PostForm from "@/components/PostForm.vue";
 import PostList from "@/components/PostList.vue";
 import axios from "axios";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 
 export default {
   components: {
@@ -52,22 +72,20 @@ export default {
   },
   data() {
     return {
-      posts: [],
       dialogVisible: false,
-      isPostLoading: false,
-      selectedSort: "",
-      searchQuery: "",
-      page: 1,
-      limit: 10,
-      totalPages: 0,
-      sortOption: [
-        { value: "title", name: "По названию" },
-        { value: "body", name: "По содержимому" },
-      ],
     };
   },
 
   methods: {
+    ...mapMutations({
+      setPage: "post/setPage",
+      setSearchQuery: "post/setSearchQuery",
+      setSelectedSort: "post/setSelectedSort",
+    }),
+    ...mapActions({
+      loadMorePosts: "post/loadMorePosts",
+      fetchPosts: "post/fetchPosts",
+    }),
     createPost(post) {
       this.posts.push(post);
       this.dialogVisible = false;
@@ -78,78 +96,29 @@ export default {
     showDialog() {
       this.dialogVisible = true;
     },
-    // changePge(pageNumber) {
-    //   this.page = pageNumber;
-    // },
-    async fetchPosts() {
-      try {
-        this.isPostLoading = true;
-
-        const response = await axios.get(
-          `https://jsonplaceholder.typicode.com/posts`,
-          {
-            params: {
-              _page: this.page,
-              _limit: this.limit,
-            },
-          }
-        );
-        this.totalPages = Math.ceil(
-          response.headers["x-total-count"] / this.limit
-        );
-        this.posts = response.data;
-      } catch (e) {
-        alert("Something went wrong");
-      } finally {
-        this.isPostLoading = false;
-      }
-    },
-
-    async loadMorePosts() {
-      try {
-        this.page += 1;
-        // this.isPostLoading = true;
-
-        const response = await axios.get(
-          `https://jsonplaceholder.typicode.com/posts`,
-          {
-            params: {
-              _page: this.page,
-              _limit: this.limit,
-            },
-          }
-        );
-        this.totalPages = Math.ceil(
-          response.headers["x-total-count"] / this.limit
-        );
-        this.posts = [...this.posts, ...response.data];
-      } catch (e) {
-        alert("Something went wrong");
-      }
-    },
   },
 
   mounted() {
     this.fetchPosts();
-    console.log(this.$refs.observer);
   },
   computed: {
-    sortedPost() {
-      return [...this.posts].sort((post1, post2) =>
-        post1[this.selectedSort]?.localeCompare(post2[this.selectedSort])
-      );
-    },
-    sortedAndSearchedPosts() {
-      return this.sortedPost.filter((post) =>
-        post.title.includes(this.searchQuery)
-      );
-    },
+    ...mapState({
+      posts: (state) => state.post.posts,
+      dialogVisible: (state) => state.post.dialogVisible,
+      isPostLoading: (state) => state.post.isPostLoading,
+      selectedSort: (state) => state.post.selectedSort,
+      searchQuery: (state) => state.post.searchQuery,
+      page: (state) => state.post.page,
+      limit: (state) => state.post.limit,
+      totalPages: (state) => state.post.totalPages,
+      sortOption: (state) => state.post.sortOption,
+    }),
+    ...mapGetters({
+      sortedPost: "post/sortedPost",
+      sortedAndSearchedPosts: "post/sortedAndSearchedPosts",
+    }),
   },
-  watch: {
-    // page() {
-    //   this.fetchPosts();
-    // },
-  },
+  watch: {},
 };
 </script>
 
@@ -228,5 +197,23 @@ h1 {
 .observer {
   height: 30px;
   background: #c0de42;
+}
+.likes {
+  margin: 0 auto;
+  width: 80px;
+  display: flex;
+  justify-content: space-between;
+}
+.like {
+  color: #c0de42;
+  cursor: pointer;
+}
+.dislike {
+  color: #c0de42;
+  cursor: pointer;
+}
+h2 {
+  font-size: 2rem;
+  color: #c0de42;
 }
 </style>
