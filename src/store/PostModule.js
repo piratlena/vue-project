@@ -3,7 +3,6 @@ import axios from "axios";
 export const postModule = {
   state: () => ({
     posts: [],
-    dialogVisible: false,
     isPostLoading: false,
     selectedSort: "",
     searchQuery: "",
@@ -23,7 +22,7 @@ export const postModule = {
     },
     sortedAndSearchedPosts(state, getters) {
       return getters.sortedPost.filter((post) =>
-        post.title.includes(state.searchQuery)
+        post.title.toLowerCase().includes(state.searchQuery.toLowerCase())
       );
     },
   },

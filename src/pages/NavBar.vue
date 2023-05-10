@@ -25,6 +25,12 @@
       >
         Store
       </li>
+      <li
+        class="navbar__item"
+        @click="$router.push('/composition')"
+      >
+        Composition API
+      </li>
     </ul>
   </div>
 </template>
@@ -66,9 +72,10 @@
   align-items: center;
 }
 .navbar__items {
-  width: 350px;
+  width: 550px;
   margin: 0 auto;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 .navbar__item {

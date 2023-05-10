@@ -36,7 +36,7 @@
       <select-list
         :model-value="selectedSort"
         @update:model-value="setSelectedSort"
-        :options="sortOption"
+        :option="sortOption"
       />
     </div>
   </div>
